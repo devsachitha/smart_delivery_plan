@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+        <!--  Next Day delivery plan form view -->
+        <record id="next_day_delivery_plan_form_view" model="ir.ui.view">
+            <field name="name">next.day.delivery.plan.form</field>
+            <field name="model">next.day.delivery.plan</field>
+            <field name="arch" type="xml">
+                <form string="Next Day Delivery Plan" class="o_sale_order">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name='delivery_date'/>
+                            </group>
+                            <group>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Delivery Lines">
+                                <field name="delivery_lines" mode="tree">
+                                    <tree string="Sales Order Lines" editable="bottom">
+                                        <field name="priority_number"/>
+                                        <field name="order_date"/>
+                                        <field name="order_id"/>
+                                        <field name="product_id"/>
+                                        <field name="order_partner_id"/>
+                                        <field name="product_uom_qty" string="Qty"/>
+                                        <field name="qty_delivered"/>
+                                        <field name="qty_delivery_available"/>
+                                        <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                                        <field name="plan_to_deliver"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!--  Next Day delivery plan tree view -->
+        <record id="next_day_delivery_plan_tree_view" model="ir.ui.view">
+            <field name="name">next.day.delivery.plan.tree</field>
+            <field name="model">next.day.delivery.plan</field>
+            <field name="arch" type="xml">
+                <tree string="Next Day Delivery Plan" >
+                    <field name='delivery_date'/>
+                </tree>
+            </field>
+        </record>
+
+
+
+        <record id="next_day_delivey_plan_lines_view_tree" model="ir.ui.view">
+            <field name="name">next.day.delivery.plan.tree</field>
+            <field name="model">next.day.delivery.lines</field>
+            <field name="arch" type="xml">
+                <tree string="Next Day Delivery Lines">
+                    <field name="priority_number"/>
+                    <field name="order_date"/>
+                    <field name="order_id"/>
+                    <field name="product_id"/>
+                    <field name="order_partner_id"/>
+                    <field name="product_uom_qty" string="Qty"/>
+                    <field name="qty_delivered"/>
+                    <field name="qty_delivery_available"/>
+                    <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                    <field name="plan_to_deliver"/>
+                </tree>
+            </field>
+        </record>
+
+        <!--  Next Day delivery plan form view action  -->
+        <record id="action_nextday_delivery_plan" model="ir.actions.act_window">
+            <field name="name">Next Day Delivery Plan</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">next.day.delivery.plan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="next_day_delivery_plan_tree_view"/>
+            <field name="context">{}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create a Next Day delivery Plan.
+                </p>
+            </field>
+        </record>
+
+        <!--  Next Day deliver plan menu item  -->
+        <menuitem id="next_day_delivery_plan"
+                  parent="sale.sale_order_menu"
+                  action="action_nextday_delivery_plan"
+                  sequence="6"/>
+    </data>
+</flectra>

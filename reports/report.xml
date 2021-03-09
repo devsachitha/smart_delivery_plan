@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <report
+        id="report_next_day_delivery_xlx"
+        string="Next Day Delivery Plan"
+        model="next.day.delivery.plan"
+        report_type="xlsx"
+        name="smart_delivery_plan.report_next_day_delivery_xls"
+        file="smart_delivery_plan.report_next_day_delivery_xls"
+    />
+</flectra>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+
+        <record id="inherit_view_order_line_tree" model="ir.ui.view">
+            <field name="name">pending.delivery.order.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Pending Deliveries" create="false">
+                    <field name="order_date"/>
+                    <field name="order_id"/>
+                    <field name="product_id"/>
+                    <field name="order_partner_id"/>
+                    <field name="name"/>
+                    <field name="salesman_id"/>
+                    <field name="product_uom_qty" string="Qty"/>
+                    <field name="qty_delivered"/>
+                    <field name="qty_delivery_available"/>
+                    <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="inherit_view_order_line_search" model="ir.ui.view">
+            <field name="name">pending.delivery.order.tree.search</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Delivery Plan">
+                   <field name="order_date"/>
+                    <filter name="today" string="Today" domain="[('order_date','&lt;=',time.strftime('%%Y-%%m-%%d'))]"/>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_pending_delivery_list" model="ir.actions.act_window">
+            <field name="name">Pending Deliveries</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="inherit_view_order_line_tree"/>
+            <field name="context">{'search_default_today': 1}</field>
+            <field name="domain">[('state', 'in', ['sale'])]</field>
+            <field name="search_view_id" ref="inherit_view_order_line_search"/>
+        </record>
+
+        <menuitem id="pending_delivery_lines"
+            parent="sale.sale_order_menu"
+            action="action_pending_delivery_list"
+            sequence="5"/>
+
+
+        <act_window
+            id="action_create_next_day_delivery"
+            multi="True"
+            name="Create Next day Delivery Plan"
+            res_model="next.day.delivery.plan" src_model="sale.order.line"
+            view_mode="form" target="new" view_type="form"
+            context="{'from_delivery': True}"
+            view_id="next_day_delivery_plan_form_view"
+        />
+
+    </data>
+</flectra>
